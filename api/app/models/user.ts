@@ -31,9 +31,6 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare password: string
   
   @column()
-  declare position_id: number
-
-  @column()
   declare is_admin: string
 
   @column.dateTime()
