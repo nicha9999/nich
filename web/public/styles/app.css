@@ -1,0 +1,56 @@
+body {
+    font-family: "Prompt", "IBM+Plex+Mono", sans-serif;
+}
+
+/* table-responsive */
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+  
+/* paginator */
+.mat-mdc-paginator-container {
+    padding: 0 !important;
+}
+
+.mat-mdc-paginator .mat-mdc-paginator-container .mat-mdc-paginator-page-size {
+    margin: 0 8px !important;
+}
+
+.mat-mdc-paginator-range-actions {
+    margin: 0 4px !important;
+}
+
+/* snackbar custom */
+.custom-snackbar {
+    .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+      border-radius: 8px !important;
+    }
+
+    .mat-mdc-button.mat-mdc-snack-bar-action {
+      color: white !important;
+    }
+}
+
+/* snackbar success */
+.snackbar-success {
+    .mdc-snackbar__surface {
+      background-color: rgb(17, 128, 17) !important;
+    }
+  
+    .mdc-snackbar__label {
+      color: white !important;
+    }
+}
+
+/* snackbar error */
+.snackbar-error {
+    .mdc-snackbar__surface {
+      background-color: red !important;
+    }
+  
+    .mdc-snackbar__label {
+      color: white !important;
+    }
+}

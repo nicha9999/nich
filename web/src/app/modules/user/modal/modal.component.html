@@ -1,0 +1,142 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-blue-950 text-on-primary">
+        <div class="text-xl font-medium"> {{ title }}</div>
+        <button
+            mat-icon-button
+            (click)="close()"
+            [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </button>
+    </div>
+
+    <ng-container>
+        
+        <form #f="ngForm" class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" novalidate>
+
+            <!-- ชื่อ-นามสกุล -->
+            <div class="mt-4">
+                <label for="fullname">ชื่อ-นามสกุล</label>
+                <input 
+                    id="fullname" 
+                    required
+                    #nameCtrl="ngModel"
+                    [ngModel]="fullname" 
+                    [ngClass]="{ 'border-red-600': saveClick && nameCtrl.errors?.required }"
+                    name="fullname" 
+                    class="w-full p-2 text-2xl border rounded-md">
+            </div>
+
+            <!-- username -->
+            <div class="mt-3">
+                <label for="username">ชื่อผู้ใช้งาน</label>
+                <input 
+                    id="username" 
+                    required
+                    #nameCtrl2="ngModel"
+                    [ngModel]="username" 
+                    [ngClass]="{ 'border-red-600': saveClick && nameCtrl2.errors?.required }"
+                    name="username" 
+                    class="w-full p-2 text-2xl border rounded-md">
+            </div>
+
+            <!-- password -->
+            <div *ngIf="!statusActionEdit" class="mt-3">
+                <label for="password">รหัสผ่าน <span class="text-xs text-blue-400">(8 หลัก)</span></label>
+                <input 
+                    id="password" 
+                    required
+                    minlength="8"
+                    #nameCtrl3="ngModel"
+                    [ngModel]="password" 
+                    [ngClass]="{ 'border-red-600': (saveClick && nameCtrl3.errors?.required) || (nameCtrl3.errors?.minlength) }"
+                    name="password" 
+                    type="password"
+                    class="w-full p-2 text-2xl border rounded-md">
+            </div>
+
+            <!-- position -->
+            <div class="mt-3">
+                <mat-form-field class="w-full">
+                    <mat-label>ตำแหน่ง</mat-label>
+                    <mat-select 
+                    required 
+                    name="positionId"
+                    [ngModel]="positionId"  
+                    #nameCtrl4="ngModel">
+                        <ng-container *ngFor="let row of positions">
+                            <mat-option [value]="row.positionId" class="p-2">
+                                {{row.positionName}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <!-- email -->
+            <div>
+                <label for="email">อีเมล์</label>
+                <input 
+                    email
+                    id="email" 
+                    [ngModel]="email" 
+                    name="email" 
+                    type="email"
+                    #nameCtrl5="ngModel"
+                    [ngClass]="{ 'border-red-600': nameCtrl5.invalid }"
+                    class="w-full p-2 text-2xl border rounded-md">
+            </div>
+
+            <div class="mt-4">
+                <mat-form-field class="w-full">
+                    <mat-label>สิทธิใช้งาน</mat-label>
+                    <mat-select 
+                    required 
+                    name="isAdmin"
+                    [ngClass]="{ 'border-red-600': nameCtrl6.invalid }"
+                    [ngModel]="isAdmin"  
+                    #nameCtrl6="ngModel">
+                        <ng-container>
+                            <mat-option [value]="1" class="p-2">
+                                ผู้ดูแลระบบ
+                            </mat-option>
+                            <mat-option [value]="2" class="p-2">
+                                ทั่วไป
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="flex flex-row gt-sm:flex-row">
+                <div class="flex flex-col">
+                    <mat-checkbox
+                        [ngModel]="active" 
+                        name="active" 
+                        class="mb-2"
+                        [color]="'primary'">
+                        เปิดใช้งาน
+                    </mat-checkbox>
+                </div>
+            </div>
+
+            <!-- Add Actions -->
+            <ng-container>
+                <div class="flex items-center justify-end mt-7">
+                    <button (click)="close()" mat-stroked-button>
+                        ยกเลิก
+                    </button>
+                    <button
+                        class="px-6 ml-3 bg-blue-950 text-white"
+                        mat-flat-button
+                        (click)="save()">
+                        บันทึก
+                    </button>
+                </div>
+            </ng-container>
+        </form>
+
+    </ng-container>
+</div>
