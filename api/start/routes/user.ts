@@ -11,7 +11,7 @@ export function userRoute(){
         router.post('/create', usersController.store)        // POST /users/create
         router.get('/details/:id', usersController.show)     // GET /users/details/:id
         router.put('/update/:id', usersController.update)    // PUT /users/update/:id  
-        router.delete('/remove/:id', usersController.destroy) // DELETE /users/remove/:id
+        router.delete('/delete/:id', usersController.destroy) // DELETE /users/delete/:id
     }).prefix('/users')
    
 }
