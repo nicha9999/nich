@@ -57,24 +57,6 @@
                     class="w-full p-2 text-2xl border rounded-md">
             </div>
 
-            <!-- position -->
-            <div class="mt-3">
-                <mat-form-field class="w-full">
-                    <mat-label>ตำแหน่ง</mat-label>
-                    <mat-select 
-                    required 
-                    name="positionId"
-                    [ngModel]="positionId"  
-                    #nameCtrl4="ngModel">
-                        <ng-container *ngFor="let row of positions">
-                            <mat-option [value]="row.positionId" class="p-2">
-                                {{row.positionName}}
-                            </mat-option>
-                        </ng-container>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
             <!-- email -->
             <div>
                 <label for="email">อีเมล์</label>

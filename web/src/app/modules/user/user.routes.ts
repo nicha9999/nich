@@ -9,7 +9,6 @@ export default [
         component: UserComponent,
         resolve  : {
             users    : () => inject(UserService).getUser(),
-            positions    : () => inject(UserService).getPositionAll(),
         },
     },
 ] as Routes;

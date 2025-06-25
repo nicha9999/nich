@@ -84,117 +84,31 @@ export class FuturisticLayoutComponent implements OnInit, OnDestroy {
 
         this.fullname = this._authService.accessFullname;
 
-        if (this._authService.customDecode(this._authService.accessAdmin) == '1') {
-            this.navigation =  [
-                {
-                    id   : 'dashboard.system',
-                    title: 'หน้าหลัก',
-                    type : 'basic',
-                    icon : 'heroicons_outline:chart-pie',
-                    link : 'dashboard-system'
-                },
-                {
-                    id   : 'machines-work',
-                    title: 'ตรวจวัด',
-                    type : 'basic',
-                    icon : 'heroicons_outline:clipboard-document-list',
-                    link : '/machines-work'
-                },
-                {
-                    id   : 'patients',
-                    title: 'ผู้ป่วย',
-                    type : 'basic',
-                    icon : 'heroicons_outline:users',
-                    link : '/patients'
-                },
-                {
-                    id   : 'drugs',
-                    title: 'ยา',
-                    type : 'basic',
-                    icon : 'heroicons_outline:list-bullet',
-                    link : '/drugs'
-                },
-                {
-                    id   : 'zones',
-                    title: 'Zone',
-                    type : 'basic',
-                    icon : 'heroicons_outline:map',
-                    link : '/zones'
-                },
-                {
-                    id   : 'machines',
-                    title: 'เครื่อง',
-                    type : 'basic',
-                    icon : 'heroicons_outline:adjustments-horizontal',
-                    link : '/machines'
-                },
-                {
-                    id      : 'setting',
-                    title   : 'ตั้งค่าระบบ',
-                    type    : 'collapsable',
-                    icon    : 'heroicons_outline:cog-8-tooth',
-                    children: [
-                        {
-                            id    : 'setting.other',
-                            title : 'ทั่วไป',
-                            type  : 'basic',
-                            link  : '/setting/other',
-                        },
-                        {
-                            id   : 'setting.user',
-                            title: 'ผู้ใช้งาน',
-                            type : 'basic',
-                            link : '/setting/user',
-                        },
-                    ]
-                }
-            ];
-        } else {
-            this.navigation =  [
-                {
-                    id   : 'dashboard.system',
-                    title: 'หน้าหลัก',
-                    type : 'basic',
-                    icon : 'heroicons_outline:chart-pie',
-                    link : 'dashboard-system'
-                },
-                {
-                    id   : 'machines-work',
-                    title: 'ตรวจวัด',
-                    type : 'basic',
-                    icon : 'heroicons_outline:clipboard-document-list',
-                    link : '/machines-work'
-                },
-                {
-                    id   : 'patients',
-                    title: 'ผู้ป่วย',
-                    type : 'basic',
-                    icon : 'heroicons_outline:users',
-                    link : '/patients'
-                },
-                {
-                    id   : 'drugs',
-                    title: 'ยา',
-                    type : 'basic',
-                    icon : 'heroicons_outline:list-bullet',
-                    link : '/drugs'
-                },
-                {
-                    id   : 'zones',
-                    title: 'Zone',
-                    type : 'basic',
-                    icon : 'heroicons_outline:map',
-                    link : '/zones'
-                },
-                {
-                    id   : 'machines',
-                    title: 'เครื่อง',
-                    type : 'basic',
-                    icon : 'heroicons_outline:adjustments-horizontal',
-                    link : '/machines'
-                }
-            ];
-        }
+        
+        this.navigation =  [
+            {
+                id   : 'dashboard.system',
+                title: 'หน้าหลัก',
+                type : 'basic',
+                icon : 'heroicons_outline:chart-pie',
+                link : 'dashboard-system'
+            },
+            {
+                id      : 'setting',
+                title   : 'ตั้งค่าระบบ',
+                type    : 'collapsable',
+                icon    : 'heroicons_outline:cog-8-tooth',
+                children: [
+                    {
+                        id   : 'setting.user',
+                        title: 'ผู้ใช้งาน',
+                        type : 'basic',
+                        link : '/setting/user',
+                    },
+                ]
+            }
+        ];
+    
 
         // Subscribe to media changes
         this._fuseMediaWatcherService.onMediaChange$

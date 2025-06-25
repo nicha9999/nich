@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Positions, User, UserPagination } from 'app/core/user/user.types';
+import { User, UserPagination } from 'app/core/user/user.types';
 import { BehaviorSubject, map, Observable, of, ReplaySubject, switchMap, take, tap, throwError } from 'rxjs';
 import { environment } from '@env/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
     private _httpClient = inject(HttpClient);
-    private _positions: BehaviorSubject<Positions[] | null> = new BehaviorSubject<Positions[]>(null);
     private _user: ReplaySubject<User> = new ReplaySubject(null);
     private _users: ReplaySubject<User[]> = new ReplaySubject<User[]>(null);
     private _pagination: BehaviorSubject<UserPagination | null> = new BehaviorSubject(null);
@@ -15,14 +14,6 @@ export class UserService {
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
     // -----------------------------------------------------------------------------------------------------
-
-   /**
-     * Getter for Positions
-     */
-   get positions$(): Observable<Positions[]>
-   {
-       return this._positions.asObservable();
-   }
 
    /**
     * Setter for user
@@ -64,19 +55,6 @@ export class UserService {
     // -----------------------------------------------------------------------------------------------------
 
     /**
-     * Get all Positions
-     */
-    getPositionAll(): Observable<Positions[]>
-    {
-        return this._httpClient.get<Positions[]>(environment.apiURL+'position/getPosition').pipe(
-            tap((positions) =>
-            {
-                this._positions.next(positions);
-            }),
-        );
-    }
-
-    /**
      * Get User
      *
      *
@@ -86,16 +64,28 @@ export class UserService {
      * @param order
      * @param search
      */
+    // getUser(page: number = 0, size: number = 10, sort: string = 'fullname', order: 'asc' | 'desc' | '' = 'asc', search: string = ''):
+    //  Observable<{ pagination: UserPagination; data: User[] }>
+    // {
+    //     return this._httpClient.post<{ pagination: UserPagination; data: User[] }>(environment.apiURL+'users/user-data', {
+    //         page: '' + page,
+    //         size: '' + size,
+    //         sort,
+    //         order,
+    //         search,
+    //     }).pipe(
+    //         tap((response) =>
+    //         {
+    //             this._pagination.next(response.pagination);
+    //             this._users.next(response.data);
+    //         }),
+    //     );
+    // }
+
     getUser(page: number = 0, size: number = 10, sort: string = 'fullname', order: 'asc' | 'desc' | '' = 'asc', search: string = ''):
      Observable<{ pagination: UserPagination; data: User[] }>
     {
-        return this._httpClient.post<{ pagination: UserPagination; data: User[] }>(environment.apiURL+'user/user-data', {
-            page: '' + page,
-            size: '' + size,
-            sort,
-            order,
-            search,
-        }).pipe(
+        return this._httpClient.get<{ pagination: UserPagination; data: User[] }>(environment.apiURL+'users/list?'+'page='+page+'&size='+size+'&sort='+sort+'&order='+order).pipe(
             tap((response) =>
             {
                 this._pagination.next(response.pagination);
@@ -113,7 +103,7 @@ export class UserService {
     {
         return this.users$.pipe(
             take(1),
-            switchMap(users => this._httpClient.post<User>(environment.apiURL+'user/user-create', user).pipe(
+            switchMap(users => this._httpClient.post<User>(environment.apiURL+'users/create', user).pipe(
                 map((newUser: any) =>
                 {
                     // Update the user with the new user
@@ -133,7 +123,7 @@ export class UserService {
      */
     getUserById(user_id: number): Observable<any>
     {
-        return this._httpClient.get<User>(environment.apiURL+'user/'+user_id).pipe(
+        return this._httpClient.get<User>(environment.apiURL+'users/details/'+user_id).pipe(
             map((user) =>
             {
                 // Update the user
@@ -164,7 +154,7 @@ export class UserService {
     {
         return this.users$.pipe(
             take(1),
-            switchMap(users => this._httpClient.put<User>(environment.apiURL+'user/'+user_id, user).pipe(
+            switchMap(users => this._httpClient.put<User>(environment.apiURL+'users/update/'+user_id, user).pipe(
                 map((updatedUser: any) =>
                 {
                     // Find the index of the updated user
@@ -192,7 +182,7 @@ export class UserService {
     {
         return this.users$.pipe(
             take(1),
-            switchMap(users => this._httpClient.delete<boolean>(environment.apiURL+'user/'+user_id).pipe(
+            switchMap(users => this._httpClient.delete<boolean>(environment.apiURL+'users/remove/'+user_id).pipe(
                 map((isDeleted: boolean) =>
                 {
                     // Find the index of the deleted user

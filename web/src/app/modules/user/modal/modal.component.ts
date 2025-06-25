@@ -11,7 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Observable, ReplaySubject, Subject, map, of, takeUntil } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'app/core/user/user.service';
-import { Positions, User } from '@app/core/user/user.types';
+import { User } from '@app/core/user/user.types';
 import { MatFormField, MatLabel, MatSelect, MatSelectModule } from '@angular/material/select';
 
 @Component({
@@ -41,8 +41,6 @@ export class UserModalComponent implements OnInit, OnDestroy
   email: string;
   isAdmin: number;
   active = false;
-
-  positions: Positions[];
   
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -68,18 +66,6 @@ export class UserModalComponent implements OnInit, OnDestroy
    */
   ngOnInit(): void
   {
-    // Get the positions
-    this._userService.positions$
-    .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe((positions: any) =>
-    {
-      // Update the positions
-      this.positions = positions;
-
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-    });
-
 
     if ( this._data.user.userId )
     {
@@ -91,7 +77,6 @@ export class UserModalComponent implements OnInit, OnDestroy
       this.username = this._data.user.username;
       this.password = this._data.user.password;
       this.picDisplay = 'data:image/jpeg;base64,'+this._data.user.pic;
-      this.positionId = this._data.user.positionId;
       this.email = this._data.user.email;
       this.isAdmin = Number(this._data.user.isAdmin);
 
@@ -147,7 +132,6 @@ export class UserModalComponent implements OnInit, OnDestroy
         fullname: this._formMain.value.fullname,
         username: this._formMain.value.username,
         password: this._formMain.value.password,
-        position_id: this._formMain.value.positionId,
         email: this._formMain.value.email,
         is_admin: this._formMain.value.isAdmin,
         active: (this._formMain.value.active == true) ? 'Y' : 'N'
