@@ -39,7 +39,6 @@ export default class UsersController {
         email: request.input('email'),
         username: request.input('username'),
         password: request.input('password'),
-        position_id: request.input('position_id'),
         is_admin: request.input('is_admin'),
         last_login: request.input('last_login'),
         active: request.input('active'),
