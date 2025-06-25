@@ -7,7 +7,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 export default class UsersController {
   public async index({ request, response }: HttpContext) {
     // Create service instance directly
-    const userService = new DynamicModelService<User>(User, 'id')
+    const userService = new DynamicModelService<User>(User, 'user_id')
     const users = await userService.findAll()
     
     const jsonService = new JsonService()
@@ -45,7 +45,7 @@ export default class UsersController {
       }
 
       // Use dynamic service to create user
-      const userService = new DynamicModelService<User>(User, 'id')
+      const userService = new DynamicModelService<User>(User, 'user_id')
       const user: any = await userService.insert(data)
 
       const userData = {
@@ -66,7 +66,7 @@ export default class UsersController {
   public async show({ params, response }: HttpContext) {
     try {
       // Use dynamic service to find user by primary key
-      const userService = new DynamicModelService<User>(User, 'id')
+      const userService = new DynamicModelService<User>(User, 'user_id')
       const user: any = await userService.findByPrimaryKey(params.id)
 
       if (!user) {
@@ -102,7 +102,7 @@ export default class UsersController {
       ])
 
       // Use dynamic service to update user by primary key
-      const userService = new DynamicModelService<User>(User, 'id')
+      const userService = new DynamicModelService<User>(User, 'user_id')
       const user: any = await userService.update(params.id, updateData)
 
       if (!user) {
@@ -128,7 +128,7 @@ export default class UsersController {
   public async destroy({ params, response }: HttpContext) {
     try {
       // Use dynamic service to delete user by primary key
-      const userService = new DynamicModelService<User>(User, 'id')
+      const userService = new DynamicModelService<User>(User, 'user_id')
       const deletedUser = await userService.delete(params.id)
 
       if (!deletedUser) {
