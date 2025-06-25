@@ -54,38 +54,10 @@ export class UserService {
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Get User
-     *
-     *
-     * @param page
-     * @param size
-     * @param sort
-     * @param order
-     * @param search
-     */
-    // getUser(page: number = 0, size: number = 10, sort: string = 'fullname', order: 'asc' | 'desc' | '' = 'asc', search: string = ''):
-    //  Observable<{ pagination: UserPagination; data: User[] }>
-    // {
-    //     return this._httpClient.post<{ pagination: UserPagination; data: User[] }>(environment.apiURL+'users/user-data', {
-    //         page: '' + page,
-    //         size: '' + size,
-    //         sort,
-    //         order,
-    //         search,
-    //     }).pipe(
-    //         tap((response) =>
-    //         {
-    //             this._pagination.next(response.pagination);
-    //             this._users.next(response.data);
-    //         }),
-    //     );
-    // }
-
     getUser(page: number = 0, size: number = 10, sort: string = 'fullname', order: 'asc' | 'desc' | '' = 'asc', search: string = ''):
      Observable<{ pagination: UserPagination; data: User[] }>
     {
-        return this._httpClient.get<{ pagination: UserPagination; data: User[] }>(environment.apiURL+'users/list?'+'page='+page+'&size='+size+'&sort='+sort+'&order='+order).pipe(
+        return this._httpClient.get<{ pagination: UserPagination; data: User[] }>(environment.apiURL+'users/list?'+'page='+page+'&size='+size+'&sort='+sort+'&order='+order+'&search='+search).pipe(
             tap((response) =>
             {
                 this._pagination.next(response.pagination);
@@ -182,7 +154,7 @@ export class UserService {
     {
         return this.users$.pipe(
             take(1),
-            switchMap(users => this._httpClient.delete<boolean>(environment.apiURL+'users/remove/'+user_id).pipe(
+            switchMap(users => this._httpClient.delete<boolean>(environment.apiURL+'users/delete/'+user_id).pipe(
                 map((isDeleted: boolean) =>
                 {
                     // Find the index of the deleted user
